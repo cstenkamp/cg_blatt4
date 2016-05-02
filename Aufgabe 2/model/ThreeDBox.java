@@ -5,21 +5,27 @@ import java.util.Collection;
 import java.util.HashMap;
 
 /**
- * Created by const on 02.05.2016.
+ * Beschreibt eine dreidimensionale box
+ * Created by const on 01.05.2016.
  *
  */
 public class ThreeDBox {
 
     private AdvColor[] Colors;
     private HashMap colors;
-    private int depth;
+    private int depth;//Groesse der Box
     int rmin,gmin,bmin,rmax,gmax,bmax;
 
+    /**
+     * Baut eine Box aus einer Hashmap
+     * @param depth
+     * @param colors
+     */
     public ThreeDBox(int depth, HashMap colors){
         this.depth = depth;
         this.colors = colors;
         Collection cols = colors.values();
-        Colors = (AdvColor[]) cols.toArray(new AdvColor[colors.size()]);
+        Colors = (AdvColor[]) cols.toArray(new AdvColor[colors.size()]);//wandelt HashMap in ein Array
         int[] Red = new int[colors.size()];
         int[] Green = new int[colors.size()];
         int[] Blue = new int[colors.size()];
@@ -28,7 +34,7 @@ public class ThreeDBox {
             Red[i] = Colors[i].getRed();
             Green[i] = Colors[i].getGreen();
             Blue[i] = Colors[i].getBlue();
-        }
+        }//Kopiert Werte in jeweilige Farbarrays
 
         rmin = Minimum(Red);
         gmin = Minimum(Green);
@@ -39,6 +45,7 @@ public class ThreeDBox {
 
 
     }
+
     public int getDepth(){
         return depth;
     }
@@ -56,6 +63,11 @@ public class ThreeDBox {
     }
 
 
+    /**
+     * Berechnet das Minimum eines Int Arrays
+     * @param Array Das Array
+     * @return Das Minimum
+     */
     private int Minimum(int[] Array){
         int minimum = Array[0];
         for(int i = 1; i < Array.length; i++){
@@ -65,7 +77,11 @@ public class ThreeDBox {
         }
         return minimum;
     }
-
+    /**
+     * Berechnet das Maximum eines Int Arrays
+     * @param Array Das Array
+     * @return Das Maximum
+     */
     private int Maximum(int[] Array){
         int maximum = Array[0];
         for(int i = 1; i < Array.length; i++){
@@ -74,5 +90,10 @@ public class ThreeDBox {
             }
         }
         return maximum;
+    }
+
+    @Override
+    public String toString() {
+        return "RedMinimum: " + rmin + " RedMaximum: " + rmax + " GreenMinimum: " + gmin + " GreenMaximum: " + gmax + " BlueMinimum: " + bmin + " BlueMaximum: " + bmax;
     }
 }
